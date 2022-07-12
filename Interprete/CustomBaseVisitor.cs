@@ -91,7 +91,7 @@ namespace Interprete.antlr
 
 
 
-        public override string VisitDirectiva([NotNull] prologParser.DirectivaContext context)
+        public override string VisitDirective([NotNull] prologParser.DirectiveContext context)
         {
             var left = Visit(context.left);
             return (left + "|" + context.texto);
@@ -104,7 +104,7 @@ namespace Interprete.antlr
 
 
 
-        public override string VisitClausula([NotNull] prologParser.ClausulaContext context)
+        public override string VisitClause([NotNull] prologParser.ClauseContext context)
         {
             var left = Visit(context.left);
             string[] palabras = left.Split(' ');
@@ -121,10 +121,10 @@ namespace Interprete.antlr
         ---------------------------------------------------------------------------------------------*/
 
 
-        public override string VisitLista_term([NotNull] prologParser.Lista_termContext context)
+        /*public override string VisitLista_term([NotNull] prologParser.List_termContext context)
         {
             return context.texto;
-        }
+        }*/
         /*--------------------------------------------------------------------------------------------
              5° VisitLista_term
              ->  Pre: context no es nulo y es de tipo Lista_termContext.
@@ -133,10 +133,10 @@ namespace Interprete.antlr
 
 
 
-        public override string VisitLista_termvar([NotNull] prologParser.Lista_termvarContext context)
+        /*public override string VisitLista_termvar([NotNull] prologParser.TermlistContext context)
         {
             return context.texto;
-        }
+        }*/
         /*--------------------------------------------------------------------------------------------
              6° VisitLista_termvar
              ->  Pre: context no es nulo y es de tipo Lista_termvarContext.

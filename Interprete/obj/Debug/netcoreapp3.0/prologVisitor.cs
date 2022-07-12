@@ -33,36 +33,68 @@ using IToken = Antlr4.Runtime.IToken;
 [System.CLSCompliant(false)]
 public interface IprologVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <summary>
-	/// Visit a parse tree produced by the <c>clausula</c>
-	/// labeled alternative in <see cref="prologParser.clause"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitClausula([NotNull] prologParser.ClausulaContext context);
-
-	/// <summary>
-	/// Visit a parse tree produced by the <c>lista_termvar</c>
-	/// labeled alternative in <see cref="prologParser.termlist"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitLista_termvar([NotNull] prologParser.Lista_termvarContext context);
-
-	/// <summary>
-	/// Visit a parse tree produced by the <c>lista_term</c>
-	/// labeled alternative in <see cref="prologParser.termlist"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitLista_term([NotNull] prologParser.Lista_termContext context);
-
-	/// <summary>
-	/// Visit a parse tree produced by the <c>prolog</c>
+	/// Visit a parse tree produced by the <c>Prolog</c>
 	/// labeled alternative in <see cref="prologParser.p_text"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitProlog([NotNull] prologParser.PrologContext context);
+
+	/// <summary>
+	/// Visit a parse tree produced by the <c>atom_term</c>
+	/// labeled alternative in <see cref="prologParser.term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitAtom_term([NotNull] prologParser.Atom_termContext context);
+
+	/// <summary>
+	/// Visit a parse tree produced by the <c>binary_operator</c>
+	/// labeled alternative in <see cref="prologParser.term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitBinary_operator([NotNull] prologParser.Binary_operatorContext context);
+
+	/// <summary>
+	/// Visit a parse tree produced by the <c>unary_operator</c>
+	/// labeled alternative in <see cref="prologParser.term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitUnary_operator([NotNull] prologParser.Unary_operatorContext context);
+
+	/// <summary>
+	/// Visit a parse tree produced by the <c>braced_term</c>
+	/// labeled alternative in <see cref="prologParser.term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitBraced_term([NotNull] prologParser.Braced_termContext context);
+
+	/// <summary>
+	/// Visit a parse tree produced by the <c>list_term</c>
+	/// labeled alternative in <see cref="prologParser.term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitList_term([NotNull] prologParser.List_termContext context);
+
+	/// <summary>
+	/// Visit a parse tree produced by the <c>variable</c>
+	/// labeled alternative in <see cref="prologParser.term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitVariable([NotNull] prologParser.VariableContext context);
+
+	/// <summary>
+	/// Visit a parse tree produced by the <c>float</c>
+	/// labeled alternative in <see cref="prologParser.term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitFloat([NotNull] prologParser.FloatContext context);
 
 	/// <summary>
 	/// Visit a parse tree produced by the <c>compound_term</c>
@@ -71,6 +103,22 @@ public interface IprologVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitCompound_term([NotNull] prologParser.Compound_termContext context);
+
+	/// <summary>
+	/// Visit a parse tree produced by the <c>integer_term</c>
+	/// labeled alternative in <see cref="prologParser.term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitInteger_term([NotNull] prologParser.Integer_termContext context);
+
+	/// <summary>
+	/// Visit a parse tree produced by the <c>curly_bracketed_term</c>
+	/// labeled alternative in <see cref="prologParser.term"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitCurly_bracketed_term([NotNull] prologParser.Curly_bracketed_termContext context);
 
 	/// <summary>
 	/// Visit a parse tree produced by the <c>backq_string</c>
@@ -143,14 +191,6 @@ public interface IprologVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitSemicolon([NotNull] prologParser.SemicolonContext context);
-
-	/// <summary>
-	/// Visit a parse tree produced by the <c>directiva</c>
-	/// labeled alternative in <see cref="prologParser.directive"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitDirectiva([NotNull] prologParser.DirectivaContext context);
 
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="prologParser.p_text"/>.

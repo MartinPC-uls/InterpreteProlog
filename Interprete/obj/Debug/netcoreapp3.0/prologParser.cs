@@ -37,10 +37,10 @@ public partial class prologParser : Parser {
 		T__24=25, T__25=26, T__26=27, T__27=28, T__28=29, T__29=30, T__30=31, 
 		T__31=32, T__32=33, T__33=34, T__34=35, T__35=36, T__36=37, T__37=38, 
 		T__38=39, T__39=40, T__40=41, T__41=42, T__42=43, T__43=44, T__44=45, 
-		T__45=46, T__46=47, T__47=48, T__48=49, T__49=50, LETTER_DIGIT=51, VARIABLE=52, 
-		DECIMAL=53, BINARY=54, OCTAL=55, HEX=56, CHARACTER_CODE_CONSTANT=57, FLOAT=58, 
-		GRAPHIC_TOKEN=59, QUOTED=60, DOUBLE_QUOTED_LIST=61, BACK_QUOTED_STRING=62, 
-		WS=63, COMMENT=64, MULTILINE_COMMENT=65;
+		T__45=46, T__46=47, T__47=48, T__48=49, T__49=50, T__50=51, LETTER_DIGIT=52, 
+		VARIABLE=53, DECIMAL=54, BINARY=55, OCTAL=56, HEX=57, CHARACTER_CODE_CONSTANT=58, 
+		FLOAT=59, GRAPHIC_TOKEN=60, QUOTED=61, DOUBLE_QUOTED_LIST=62, BACK_QUOTED_STRING=63, 
+		WS=64, COMMENT=65, MULTILINE_COMMENT=66;
 	public const int
 		RULE_p_text = 0, RULE_directive = 1, RULE_clause = 2, RULE_termlist = 3, 
 		RULE_term = 4, RULE_operator_ = 5, RULE_atom = 6, RULE_integer = 7;
@@ -50,20 +50,20 @@ public partial class prologParser : Parser {
 	};
 
 	private static readonly string[] _LiteralNames = {
-		null, "':-'", "','", "'.'", "'('", "')'", "'-->'", "'?-'", "'dynamic'", 
-		"'multifile'", "'discontiguous'", "'public'", "';'", "'->'", "'\\+'", 
-		"'='", "'\\='", "'=='", "'\\=='", "'@<'", "'@=<'", "'@>'", "'@>='", "'=..'", 
-		"'is'", "'=:='", "'=\\='", "'<'", "'=<'", "'>'", "'>='", "':'", "'+'", 
-		"'-'", "'/\\'", "'\\/'", "'*'", "'/'", "'//'", "'rem'", "'mod'", "'<<'", 
-		"'>>'", "'**'", "'^'", "'\\'", "'['", "']'", "'{'", "'}'", "'!'"
+		null, "':-'", "'.'", "','", "'('", "')'", "'-'", "'['", "'|'", "']'", 
+		"'{'", "'}'", "'-->'", "'?-'", "'dynamic'", "'multifile'", "'discontiguous'", 
+		"'public'", "';'", "'->'", "'\\+'", "'='", "'\\='", "'=='", "'\\=='", 
+		"'@<'", "'@=<'", "'@>'", "'@>='", "'=..'", "'is'", "'=:='", "'=\\='", 
+		"'<'", "'=<'", "'>'", "'>='", "':'", "'+'", "'/\\'", "'\\/'", "'*'", "'/'", 
+		"'//'", "'rem'", "'mod'", "'<<'", "'>>'", "'**'", "'^'", "'\\'", "'!'"
 	};
 	private static readonly string[] _SymbolicNames = {
 		null, null, null, null, null, null, null, null, null, null, null, null, 
 		null, null, null, null, null, null, null, null, null, null, null, null, 
 		null, null, null, null, null, null, null, null, null, null, null, null, 
 		null, null, null, null, null, null, null, null, null, null, null, null, 
-		null, null, null, "LETTER_DIGIT", "VARIABLE", "DECIMAL", "BINARY", "OCTAL", 
-		"HEX", "CHARACTER_CODE_CONSTANT", "FLOAT", "GRAPHIC_TOKEN", "QUOTED", 
+		null, null, null, null, "LETTER_DIGIT", "VARIABLE", "DECIMAL", "BINARY", 
+		"OCTAL", "HEX", "CHARACTER_CODE_CONSTANT", "FLOAT", "GRAPHIC_TOKEN", "QUOTED", 
 		"DOUBLE_QUOTED_LIST", "BACK_QUOTED_STRING", "WS", "COMMENT", "MULTILINE_COMMENT"
 	};
 	public static readonly IVocabulary DefaultVocabulary = new Vocabulary(_LiteralNames, _SymbolicNames);
@@ -117,8 +117,6 @@ public partial class prologParser : Parser {
 		_interp = new ParserATNSimulator(this,_ATN);
 	}
 	public partial class P_textContext : ParserRuleContext {
-		public string l = "";
-		public string r = "";
 		public P_textContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -128,27 +126,21 @@ public partial class prologParser : Parser {
 		public P_textContext() { }
 		public virtual void CopyFrom(P_textContext context) {
 			base.CopyFrom(context);
-			this.l = context.l;
-			this.r = context.r;
 		}
 	}
 	public partial class PrologContext : P_textContext {
-		public ClauseContext c;
-		public ClauseContext clist;
-		public DirectiveContext d;
-		public DirectiveContext dlist;
 		public ITerminalNode Eof() { return GetToken(prologParser.Eof, 0); }
-		public ClauseContext[] clause() {
-			return GetRuleContexts<ClauseContext>();
-		}
-		public ClauseContext clause(int i) {
-			return GetRuleContext<ClauseContext>(i);
-		}
 		public DirectiveContext[] directive() {
 			return GetRuleContexts<DirectiveContext>();
 		}
 		public DirectiveContext directive(int i) {
 			return GetRuleContext<DirectiveContext>(i);
+		}
+		public ClauseContext[] clause() {
+			return GetRuleContexts<ClauseContext>();
+		}
+		public ClauseContext clause(int i) {
+			return GetRuleContext<ClauseContext>(i);
 		}
 		public PrologContext(P_textContext context) { CopyFrom(context); }
 		public override void EnterRule(IParseTreeListener listener) {
@@ -172,45 +164,35 @@ public partial class prologParser : Parser {
 		EnterRule(_localctx, 0, RULE_p_text);
 		int _la;
 		try {
-			int _alt;
 			_localctx = new PrologContext(_localctx);
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 16; ((PrologContext)_localctx).c = clause();
-			((PrologContext)_localctx).r = ((PrologContext)_localctx).c.texto;
-			State = 23;
-			_errHandler.Sync(this);
-			_alt = Interpreter.AdaptivePredict(_input,0,_ctx);
-			while ( _alt!=2 && _alt!=global::Antlr4.Runtime.Atn.ATN.InvalidAltNumber ) {
-				if ( _alt==1 ) {
-					{
-					{
-					State = 18; ((PrologContext)_localctx).clist = clause();
-					((PrologContext)_localctx).r = _localctx.r+"&"+((PrologContext)_localctx).clist.texto;
-					}
-					} 
-				}
-				State = 25;
-				_errHandler.Sync(this);
-				_alt = Interpreter.AdaptivePredict(_input,0,_ctx);
-			}
-			State = 26; ((PrologContext)_localctx).d = directive();
-			((PrologContext)_localctx).l = ((PrologContext)_localctx).d.texto;
-			State = 33;
+			State = 20;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__11) | (1L << T__45) | (1L << T__47) | (1L << T__49) | (1L << LETTER_DIGIT) | (1L << GRAPHIC_TOKEN) | (1L << QUOTED) | (1L << DOUBLE_QUOTED_LIST) | (1L << BACK_QUOTED_STRING))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__2) | (1L << T__3) | (1L << T__5) | (1L << T__6) | (1L << T__9) | (1L << T__11) | (1L << T__12) | (1L << T__13) | (1L << T__14) | (1L << T__15) | (1L << T__16) | (1L << T__17) | (1L << T__18) | (1L << T__19) | (1L << T__20) | (1L << T__21) | (1L << T__22) | (1L << T__23) | (1L << T__24) | (1L << T__25) | (1L << T__26) | (1L << T__27) | (1L << T__28) | (1L << T__29) | (1L << T__30) | (1L << T__31) | (1L << T__32) | (1L << T__33) | (1L << T__34) | (1L << T__35) | (1L << T__36) | (1L << T__37) | (1L << T__38) | (1L << T__39) | (1L << T__40) | (1L << T__41) | (1L << T__42) | (1L << T__43) | (1L << T__44) | (1L << T__45) | (1L << T__46) | (1L << T__47) | (1L << T__48) | (1L << T__49) | (1L << T__50) | (1L << LETTER_DIGIT) | (1L << VARIABLE) | (1L << DECIMAL) | (1L << BINARY) | (1L << OCTAL) | (1L << HEX) | (1L << CHARACTER_CODE_CONSTANT) | (1L << FLOAT) | (1L << GRAPHIC_TOKEN) | (1L << QUOTED) | (1L << DOUBLE_QUOTED_LIST) | (1L << BACK_QUOTED_STRING))) != 0)) {
 				{
-				{
-				State = 28; ((PrologContext)_localctx).dlist = directive();
-				((PrologContext)_localctx).l = _localctx.l+"&"+((PrologContext)_localctx).dlist.texto;
+				State = 18;
+				_errHandler.Sync(this);
+				switch ( Interpreter.AdaptivePredict(_input,0,_ctx) ) {
+				case 1:
+					{
+					State = 16; directive();
+					}
+					break;
+
+				case 2:
+					{
+					State = 17; clause();
+					}
+					break;
 				}
 				}
-				State = 35;
+				State = 22;
 				_errHandler.Sync(this);
 				_la = _input.La(1);
 			}
-			State = 36; Match(Eof);
+			State = 23; Match(Eof);
 			}
 		}
 		catch (RecognitionException re) {
@@ -225,43 +207,25 @@ public partial class prologParser : Parser {
 	}
 
 	public partial class DirectiveContext : ParserRuleContext {
-		public string texto;
-		public string t = "";
+		public TermContext term() {
+			return GetRuleContext<TermContext>(0);
+		}
 		public DirectiveContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
 		public override int RuleIndex { get { return RULE_directive; } }
-	 
-		public DirectiveContext() { }
-		public virtual void CopyFrom(DirectiveContext context) {
-			base.CopyFrom(context);
-			this.texto = context.texto;
-			this.t = context.t;
-		}
-	}
-	public partial class DirectivaContext : DirectiveContext {
-		public TermContext left;
-		public TermContext center;
-		public TermContext right;
-		public TermContext[] term() {
-			return GetRuleContexts<TermContext>();
-		}
-		public TermContext term(int i) {
-			return GetRuleContext<TermContext>(i);
-		}
-		public DirectivaContext(DirectiveContext context) { CopyFrom(context); }
 		public override void EnterRule(IParseTreeListener listener) {
 			IprologListener typedListener = listener as IprologListener;
-			if (typedListener != null) typedListener.EnterDirectiva(this);
+			if (typedListener != null) typedListener.EnterDirective(this);
 		}
 		public override void ExitRule(IParseTreeListener listener) {
 			IprologListener typedListener = listener as IprologListener;
-			if (typedListener != null) typedListener.ExitDirectiva(this);
+			if (typedListener != null) typedListener.ExitDirective(this);
 		}
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			IprologVisitor<TResult> typedVisitor = visitor as IprologVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitDirectiva(this);
+			if (typedVisitor != null) return typedVisitor.VisitDirective(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
@@ -270,32 +234,12 @@ public partial class prologParser : Parser {
 	public DirectiveContext directive() {
 		DirectiveContext _localctx = new DirectiveContext(_ctx, State);
 		EnterRule(_localctx, 2, RULE_directive);
-		int _la;
 		try {
-			_localctx = new DirectivaContext(_localctx);
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 38; ((DirectivaContext)_localctx).left = term();
-			State = 39; Match(T__0);
-			State = 40; ((DirectivaContext)_localctx).center = term();
-			((DirectivaContext)_localctx).t = ((DirectivaContext)_localctx).left.texto+"|"+((DirectivaContext)_localctx).center.texto;
-			State = 48;
-			_errHandler.Sync(this);
-			_la = _input.La(1);
-			while (_la==T__1) {
-				{
-				{
-				State = 42; Match(T__1);
-				State = 43; ((DirectivaContext)_localctx).right = term();
-				((DirectivaContext)_localctx).t = _localctx.t+"|"+((DirectivaContext)_localctx).right.texto;
-				}
-				}
-				State = 50;
-				_errHandler.Sync(this);
-				_la = _input.La(1);
-			}
-			State = 51; Match(T__2);
-			((DirectivaContext)_localctx).texto = _localctx.t;
+			State = 25; Match(T__0);
+			State = 26; term(0);
+			State = 27; Match(T__1);
 			}
 		}
 		catch (RecognitionException re) {
@@ -310,36 +254,25 @@ public partial class prologParser : Parser {
 	}
 
 	public partial class ClauseContext : ParserRuleContext {
-		public string texto;
+		public TermContext term() {
+			return GetRuleContext<TermContext>(0);
+		}
 		public ClauseContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
 		public override int RuleIndex { get { return RULE_clause; } }
-	 
-		public ClauseContext() { }
-		public virtual void CopyFrom(ClauseContext context) {
-			base.CopyFrom(context);
-			this.texto = context.texto;
-		}
-	}
-	public partial class ClausulaContext : ClauseContext {
-		public TermContext left;
-		public TermContext term() {
-			return GetRuleContext<TermContext>(0);
-		}
-		public ClausulaContext(ClauseContext context) { CopyFrom(context); }
 		public override void EnterRule(IParseTreeListener listener) {
 			IprologListener typedListener = listener as IprologListener;
-			if (typedListener != null) typedListener.EnterClausula(this);
+			if (typedListener != null) typedListener.EnterClause(this);
 		}
 		public override void ExitRule(IParseTreeListener listener) {
 			IprologListener typedListener = listener as IprologListener;
-			if (typedListener != null) typedListener.ExitClausula(this);
+			if (typedListener != null) typedListener.ExitClause(this);
 		}
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			IprologVisitor<TResult> typedVisitor = visitor as IprologVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitClausula(this);
+			if (typedVisitor != null) return typedVisitor.VisitClause(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
@@ -349,12 +282,10 @@ public partial class prologParser : Parser {
 		ClauseContext _localctx = new ClauseContext(_ctx, State);
 		EnterRule(_localctx, 4, RULE_clause);
 		try {
-			_localctx = new ClausulaContext(_localctx);
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 54; ((ClausulaContext)_localctx).left = term();
-			State = 55; Match(T__2);
-			((ClausulaContext)_localctx).texto = ((ClausulaContext)_localctx).left.texto;
+			State = 29; term(0);
+			State = 30; Match(T__1);
 			}
 		}
 		catch (RecognitionException re) {
@@ -369,64 +300,28 @@ public partial class prologParser : Parser {
 	}
 
 	public partial class TermlistContext : ParserRuleContext {
-		public string texto;
-		public string t = "";
+		public TermContext[] term() {
+			return GetRuleContexts<TermContext>();
+		}
+		public TermContext term(int i) {
+			return GetRuleContext<TermContext>(i);
+		}
 		public TermlistContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
 		public override int RuleIndex { get { return RULE_termlist; } }
-	 
-		public TermlistContext() { }
-		public virtual void CopyFrom(TermlistContext context) {
-			base.CopyFrom(context);
-			this.texto = context.texto;
-			this.t = context.t;
-		}
-	}
-	public partial class Lista_termvarContext : TermlistContext {
-		public IToken left;
-		public IToken right;
-		public ITerminalNode[] VARIABLE() { return GetTokens(prologParser.VARIABLE); }
-		public ITerminalNode VARIABLE(int i) {
-			return GetToken(prologParser.VARIABLE, i);
-		}
-		public Lista_termvarContext(TermlistContext context) { CopyFrom(context); }
 		public override void EnterRule(IParseTreeListener listener) {
 			IprologListener typedListener = listener as IprologListener;
-			if (typedListener != null) typedListener.EnterLista_termvar(this);
+			if (typedListener != null) typedListener.EnterTermlist(this);
 		}
 		public override void ExitRule(IParseTreeListener listener) {
 			IprologListener typedListener = listener as IprologListener;
-			if (typedListener != null) typedListener.ExitLista_termvar(this);
+			if (typedListener != null) typedListener.ExitTermlist(this);
 		}
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			IprologVisitor<TResult> typedVisitor = visitor as IprologVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitLista_termvar(this);
-			else return visitor.VisitChildren(this);
-		}
-	}
-	public partial class Lista_termContext : TermlistContext {
-		public AtomContext left;
-		public AtomContext right;
-		public AtomContext[] atom() {
-			return GetRuleContexts<AtomContext>();
-		}
-		public AtomContext atom(int i) {
-			return GetRuleContext<AtomContext>(i);
-		}
-		public Lista_termContext(TermlistContext context) { CopyFrom(context); }
-		public override void EnterRule(IParseTreeListener listener) {
-			IprologListener typedListener = listener as IprologListener;
-			if (typedListener != null) typedListener.EnterLista_term(this);
-		}
-		public override void ExitRule(IParseTreeListener listener) {
-			IprologListener typedListener = listener as IprologListener;
-			if (typedListener != null) typedListener.ExitLista_term(this);
-		}
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			IprologVisitor<TResult> typedVisitor = visitor as IprologVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitLista_term(this);
+			if (typedVisitor != null) return typedVisitor.VisitTermlist(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
@@ -437,67 +332,23 @@ public partial class prologParser : Parser {
 		EnterRule(_localctx, 6, RULE_termlist);
 		int _la;
 		try {
-			State = 82;
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 32; term(0);
+			State = 37;
 			_errHandler.Sync(this);
-			switch (_input.La(1)) {
-			case T__11:
-			case T__45:
-			case T__47:
-			case T__49:
-			case LETTER_DIGIT:
-			case GRAPHIC_TOKEN:
-			case QUOTED:
-			case DOUBLE_QUOTED_LIST:
-			case BACK_QUOTED_STRING:
-				_localctx = new Lista_termContext(_localctx);
-				EnterOuterAlt(_localctx, 1);
+			_la = _input.La(1);
+			while (_la==T__2) {
 				{
-				State = 58; ((Lista_termContext)_localctx).left = atom();
-				((Lista_termContext)_localctx).t = (((Lista_termContext)_localctx).left!=null?_input.GetText(((Lista_termContext)_localctx).left.start,((Lista_termContext)_localctx).left.stop):null);
-				State = 66;
+				{
+				State = 33; Match(T__2);
+				State = 34; term(0);
+				}
+				}
+				State = 39;
 				_errHandler.Sync(this);
 				_la = _input.La(1);
-				while (_la==T__1) {
-					{
-					{
-					State = 60; Match(T__1);
-					State = 61; ((Lista_termContext)_localctx).right = atom();
-					((Lista_termContext)_localctx).t = _localctx.t+" "+(((Lista_termContext)_localctx).right!=null?_input.GetText(((Lista_termContext)_localctx).right.start,((Lista_termContext)_localctx).right.stop):null);
-					}
-					}
-					State = 68;
-					_errHandler.Sync(this);
-					_la = _input.La(1);
-				}
-				((Lista_termContext)_localctx).texto = _localctx.t;
-				}
-				break;
-			case VARIABLE:
-				_localctx = new Lista_termvarContext(_localctx);
-				EnterOuterAlt(_localctx, 2);
-				{
-				State = 71; ((Lista_termvarContext)_localctx).left = Match(VARIABLE);
-				((Lista_termvarContext)_localctx).t = (((Lista_termvarContext)_localctx).left!=null?((Lista_termvarContext)_localctx).left.Text:null);
-				State = 78;
-				_errHandler.Sync(this);
-				_la = _input.La(1);
-				while (_la==T__1) {
-					{
-					{
-					State = 73; Match(T__1);
-					State = 74; ((Lista_termvarContext)_localctx).right = Match(VARIABLE);
-					((Lista_termvarContext)_localctx).t = _localctx.t+" "+(((Lista_termvarContext)_localctx).right!=null?((Lista_termvarContext)_localctx).right.Text:null);
-					}
-					}
-					State = 80;
-					_errHandler.Sync(this);
-					_la = _input.La(1);
-				}
-				((Lista_termvarContext)_localctx).texto = _localctx.t;
-				}
-				break;
-			default:
-				throw new NoViableAltException(this);
+			}
 			}
 		}
 		catch (RecognitionException re) {
@@ -512,8 +363,6 @@ public partial class prologParser : Parser {
 	}
 
 	public partial class TermContext : ParserRuleContext {
-		public string texto;
-		public string t = "";
 		public TermContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -523,13 +372,150 @@ public partial class prologParser : Parser {
 		public TermContext() { }
 		public virtual void CopyFrom(TermContext context) {
 			base.CopyFrom(context);
-			this.texto = context.texto;
-			this.t = context.t;
+		}
+	}
+	public partial class Atom_termContext : TermContext {
+		public AtomContext atom() {
+			return GetRuleContext<AtomContext>(0);
+		}
+		public Atom_termContext(TermContext context) { CopyFrom(context); }
+		public override void EnterRule(IParseTreeListener listener) {
+			IprologListener typedListener = listener as IprologListener;
+			if (typedListener != null) typedListener.EnterAtom_term(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			IprologListener typedListener = listener as IprologListener;
+			if (typedListener != null) typedListener.ExitAtom_term(this);
+		}
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IprologVisitor<TResult> typedVisitor = visitor as IprologVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitAtom_term(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+	public partial class Binary_operatorContext : TermContext {
+		public TermContext[] term() {
+			return GetRuleContexts<TermContext>();
+		}
+		public TermContext term(int i) {
+			return GetRuleContext<TermContext>(i);
+		}
+		public Operator_Context operator_() {
+			return GetRuleContext<Operator_Context>(0);
+		}
+		public Binary_operatorContext(TermContext context) { CopyFrom(context); }
+		public override void EnterRule(IParseTreeListener listener) {
+			IprologListener typedListener = listener as IprologListener;
+			if (typedListener != null) typedListener.EnterBinary_operator(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			IprologListener typedListener = listener as IprologListener;
+			if (typedListener != null) typedListener.ExitBinary_operator(this);
+		}
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IprologVisitor<TResult> typedVisitor = visitor as IprologVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitBinary_operator(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+	public partial class Unary_operatorContext : TermContext {
+		public Operator_Context operator_() {
+			return GetRuleContext<Operator_Context>(0);
+		}
+		public TermContext term() {
+			return GetRuleContext<TermContext>(0);
+		}
+		public Unary_operatorContext(TermContext context) { CopyFrom(context); }
+		public override void EnterRule(IParseTreeListener listener) {
+			IprologListener typedListener = listener as IprologListener;
+			if (typedListener != null) typedListener.EnterUnary_operator(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			IprologListener typedListener = listener as IprologListener;
+			if (typedListener != null) typedListener.ExitUnary_operator(this);
+		}
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IprologVisitor<TResult> typedVisitor = visitor as IprologVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitUnary_operator(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+	public partial class Braced_termContext : TermContext {
+		public TermContext term() {
+			return GetRuleContext<TermContext>(0);
+		}
+		public Braced_termContext(TermContext context) { CopyFrom(context); }
+		public override void EnterRule(IParseTreeListener listener) {
+			IprologListener typedListener = listener as IprologListener;
+			if (typedListener != null) typedListener.EnterBraced_term(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			IprologListener typedListener = listener as IprologListener;
+			if (typedListener != null) typedListener.ExitBraced_term(this);
+		}
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IprologVisitor<TResult> typedVisitor = visitor as IprologVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitBraced_term(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+	public partial class List_termContext : TermContext {
+		public TermlistContext termlist() {
+			return GetRuleContext<TermlistContext>(0);
+		}
+		public TermContext term() {
+			return GetRuleContext<TermContext>(0);
+		}
+		public List_termContext(TermContext context) { CopyFrom(context); }
+		public override void EnterRule(IParseTreeListener listener) {
+			IprologListener typedListener = listener as IprologListener;
+			if (typedListener != null) typedListener.EnterList_term(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			IprologListener typedListener = listener as IprologListener;
+			if (typedListener != null) typedListener.ExitList_term(this);
+		}
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IprologVisitor<TResult> typedVisitor = visitor as IprologVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitList_term(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+	public partial class VariableContext : TermContext {
+		public ITerminalNode VARIABLE() { return GetToken(prologParser.VARIABLE, 0); }
+		public VariableContext(TermContext context) { CopyFrom(context); }
+		public override void EnterRule(IParseTreeListener listener) {
+			IprologListener typedListener = listener as IprologListener;
+			if (typedListener != null) typedListener.EnterVariable(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			IprologListener typedListener = listener as IprologListener;
+			if (typedListener != null) typedListener.ExitVariable(this);
+		}
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IprologVisitor<TResult> typedVisitor = visitor as IprologVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitVariable(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+	public partial class FloatContext : TermContext {
+		public ITerminalNode FLOAT() { return GetToken(prologParser.FLOAT, 0); }
+		public FloatContext(TermContext context) { CopyFrom(context); }
+		public override void EnterRule(IParseTreeListener listener) {
+			IprologListener typedListener = listener as IprologListener;
+			if (typedListener != null) typedListener.EnterFloat(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			IprologListener typedListener = listener as IprologListener;
+			if (typedListener != null) typedListener.ExitFloat(this);
+		}
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IprologVisitor<TResult> typedVisitor = visitor as IprologVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitFloat(this);
+			else return visitor.VisitChildren(this);
 		}
 	}
 	public partial class Compound_termContext : TermContext {
-		public AtomContext left;
-		public TermlistContext right;
 		public AtomContext atom() {
 			return GetRuleContext<AtomContext>(0);
 		}
@@ -551,20 +537,208 @@ public partial class prologParser : Parser {
 			else return visitor.VisitChildren(this);
 		}
 	}
+	public partial class Integer_termContext : TermContext {
+		public IntegerContext integer() {
+			return GetRuleContext<IntegerContext>(0);
+		}
+		public Integer_termContext(TermContext context) { CopyFrom(context); }
+		public override void EnterRule(IParseTreeListener listener) {
+			IprologListener typedListener = listener as IprologListener;
+			if (typedListener != null) typedListener.EnterInteger_term(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			IprologListener typedListener = listener as IprologListener;
+			if (typedListener != null) typedListener.ExitInteger_term(this);
+		}
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IprologVisitor<TResult> typedVisitor = visitor as IprologVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitInteger_term(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+	public partial class Curly_bracketed_termContext : TermContext {
+		public TermlistContext termlist() {
+			return GetRuleContext<TermlistContext>(0);
+		}
+		public Curly_bracketed_termContext(TermContext context) { CopyFrom(context); }
+		public override void EnterRule(IParseTreeListener listener) {
+			IprologListener typedListener = listener as IprologListener;
+			if (typedListener != null) typedListener.EnterCurly_bracketed_term(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			IprologListener typedListener = listener as IprologListener;
+			if (typedListener != null) typedListener.ExitCurly_bracketed_term(this);
+		}
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IprologVisitor<TResult> typedVisitor = visitor as IprologVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitCurly_bracketed_term(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
 
 	[RuleVersion(0)]
 	public TermContext term() {
-		TermContext _localctx = new TermContext(_ctx, State);
-		EnterRule(_localctx, 8, RULE_term);
+		return term(0);
+	}
+
+	private TermContext term(int _p) {
+		ParserRuleContext _parentctx = _ctx;
+		int _parentState = State;
+		TermContext _localctx = new TermContext(_ctx, _parentState);
+		TermContext _prevctx = _localctx;
+		int _startState = 8;
+		EnterRecursionRule(_localctx, 8, RULE_term, _p);
+		int _la;
 		try {
-			_localctx = new Compound_termContext(_localctx);
+			int _alt;
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 84; ((Compound_termContext)_localctx).left = atom();
-			State = 85; Match(T__3);
-			State = 86; ((Compound_termContext)_localctx).right = termlist();
-			State = 87; Match(T__4);
-			((Compound_termContext)_localctx).t = (((Compound_termContext)_localctx).left!=null?_input.GetText(((Compound_termContext)_localctx).left.start,((Compound_termContext)_localctx).left.stop):null)+"///"+(((Compound_termContext)_localctx).right!=null?_input.GetText(((Compound_termContext)_localctx).right.start,((Compound_termContext)_localctx).right.stop):null); ((Compound_termContext)_localctx).texto = _localctx.t;
+			State = 75;
+			_errHandler.Sync(this);
+			switch ( Interpreter.AdaptivePredict(_input,6,_ctx) ) {
+			case 1:
+				{
+				_localctx = new VariableContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+
+				State = 41; Match(VARIABLE);
+				}
+				break;
+
+			case 2:
+				{
+				_localctx = new Braced_termContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+				State = 42; Match(T__3);
+				State = 43; term(0);
+				State = 44; Match(T__4);
+				}
+				break;
+
+			case 3:
+				{
+				_localctx = new Integer_termContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+				State = 47;
+				_errHandler.Sync(this);
+				_la = _input.La(1);
+				if (_la==T__5) {
+					{
+					State = 46; Match(T__5);
+					}
+				}
+
+				State = 49; integer();
+				}
+				break;
+
+			case 4:
+				{
+				_localctx = new FloatContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+				State = 51;
+				_errHandler.Sync(this);
+				_la = _input.La(1);
+				if (_la==T__5) {
+					{
+					State = 50; Match(T__5);
+					}
+				}
+
+				State = 53; Match(FLOAT);
+				}
+				break;
+
+			case 5:
+				{
+				_localctx = new Compound_termContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+				State = 54; atom();
+				State = 55; Match(T__3);
+				State = 56; termlist();
+				State = 57; Match(T__4);
+				}
+				break;
+
+			case 6:
+				{
+				_localctx = new Unary_operatorContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+				State = 59; operator_();
+				State = 60; term(4);
+				}
+				break;
+
+			case 7:
+				{
+				_localctx = new List_termContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+				State = 62; Match(T__6);
+				State = 63; termlist();
+				State = 66;
+				_errHandler.Sync(this);
+				_la = _input.La(1);
+				if (_la==T__7) {
+					{
+					State = 64; Match(T__7);
+					State = 65; term(0);
+					}
+				}
+
+				State = 68; Match(T__8);
+				}
+				break;
+
+			case 8:
+				{
+				_localctx = new Curly_bracketed_termContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+				State = 70; Match(T__9);
+				State = 71; termlist();
+				State = 72; Match(T__10);
+				}
+				break;
+
+			case 9:
+				{
+				_localctx = new Atom_termContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+				State = 74; atom();
+				}
+				break;
+			}
+			_ctx.stop = _input.Lt(-1);
+			State = 83;
+			_errHandler.Sync(this);
+			_alt = Interpreter.AdaptivePredict(_input,7,_ctx);
+			while ( _alt!=2 && _alt!=global::Antlr4.Runtime.Atn.ATN.InvalidAltNumber ) {
+				if ( _alt==1 ) {
+					if ( _parseListeners!=null ) TriggerExitRuleEvent();
+					_prevctx = _localctx;
+					{
+					{
+					_localctx = new Binary_operatorContext(new TermContext(_parentctx, _parentState));
+					PushNewRecursionContext(_localctx, _startState, RULE_term);
+					State = 77;
+					if (!(Precpred(_ctx, 5))) throw new FailedPredicateException(this, "Precpred(_ctx, 5)");
+					State = 78; operator_();
+					State = 79; term(5);
+					}
+					} 
+				}
+				State = 85;
+				_errHandler.Sync(this);
+				_alt = Interpreter.AdaptivePredict(_input,7,_ctx);
+			}
 			}
 		}
 		catch (RecognitionException re) {
@@ -573,7 +747,7 @@ public partial class prologParser : Parser {
 			_errHandler.Recover(this, re);
 		}
 		finally {
-			ExitRule();
+			UnrollRecursionContexts(_parentctx);
 		}
 		return _localctx;
 	}
@@ -607,9 +781,9 @@ public partial class prologParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 90;
+			State = 86;
 			_la = _input.La(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__1) | (1L << T__5) | (1L << T__6) | (1L << T__7) | (1L << T__8) | (1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << T__12) | (1L << T__13) | (1L << T__14) | (1L << T__15) | (1L << T__16) | (1L << T__17) | (1L << T__18) | (1L << T__19) | (1L << T__20) | (1L << T__21) | (1L << T__22) | (1L << T__23) | (1L << T__24) | (1L << T__25) | (1L << T__26) | (1L << T__27) | (1L << T__28) | (1L << T__29) | (1L << T__30) | (1L << T__31) | (1L << T__32) | (1L << T__33) | (1L << T__34) | (1L << T__35) | (1L << T__36) | (1L << T__37) | (1L << T__38) | (1L << T__39) | (1L << T__40) | (1L << T__41) | (1L << T__42) | (1L << T__43) | (1L << T__44))) != 0)) ) {
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__2) | (1L << T__5) | (1L << T__11) | (1L << T__12) | (1L << T__13) | (1L << T__14) | (1L << T__15) | (1L << T__16) | (1L << T__17) | (1L << T__18) | (1L << T__19) | (1L << T__20) | (1L << T__21) | (1L << T__22) | (1L << T__23) | (1L << T__24) | (1L << T__25) | (1L << T__26) | (1L << T__27) | (1L << T__28) | (1L << T__29) | (1L << T__30) | (1L << T__31) | (1L << T__32) | (1L << T__33) | (1L << T__34) | (1L << T__35) | (1L << T__36) | (1L << T__37) | (1L << T__38) | (1L << T__39) | (1L << T__40) | (1L << T__41) | (1L << T__42) | (1L << T__43) | (1L << T__44) | (1L << T__45) | (1L << T__46) | (1L << T__47) | (1L << T__48) | (1L << T__49))) != 0)) ) {
 			_errHandler.RecoverInline(this);
 			} else {
 				if (_input.La(1) == TokenConstants.Eof) {
@@ -799,72 +973,72 @@ public partial class prologParser : Parser {
 		AtomContext _localctx = new AtomContext(_ctx, State);
 		EnterRule(_localctx, 12, RULE_atom);
 		try {
-			State = 103;
+			State = 99;
 			_errHandler.Sync(this);
 			switch (_input.La(1)) {
-			case T__45:
+			case T__6:
 				_localctx = new Empty_listContext(_localctx);
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 92; Match(T__45);
-				State = 93; Match(T__46);
+				State = 88; Match(T__6);
+				State = 89; Match(T__8);
 				}
 				break;
-			case T__47:
+			case T__9:
 				_localctx = new Empty_bracesContext(_localctx);
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 94; Match(T__47);
-				State = 95; Match(T__48);
+				State = 90; Match(T__9);
+				State = 91; Match(T__10);
 				}
 				break;
 			case LETTER_DIGIT:
 				_localctx = new NameContext(_localctx);
 				EnterOuterAlt(_localctx, 3);
 				{
-				State = 96; Match(LETTER_DIGIT);
+				State = 92; Match(LETTER_DIGIT);
 				}
 				break;
 			case GRAPHIC_TOKEN:
 				_localctx = new GraphicContext(_localctx);
 				EnterOuterAlt(_localctx, 4);
 				{
-				State = 97; Match(GRAPHIC_TOKEN);
+				State = 93; Match(GRAPHIC_TOKEN);
 				}
 				break;
 			case QUOTED:
 				_localctx = new Quoted_stringContext(_localctx);
 				EnterOuterAlt(_localctx, 5);
 				{
-				State = 98; Match(QUOTED);
+				State = 94; Match(QUOTED);
 				}
 				break;
 			case DOUBLE_QUOTED_LIST:
 				_localctx = new Dq_stringContext(_localctx);
 				EnterOuterAlt(_localctx, 6);
 				{
-				State = 99; Match(DOUBLE_QUOTED_LIST);
+				State = 95; Match(DOUBLE_QUOTED_LIST);
 				}
 				break;
 			case BACK_QUOTED_STRING:
 				_localctx = new Backq_stringContext(_localctx);
 				EnterOuterAlt(_localctx, 7);
 				{
-				State = 100; Match(BACK_QUOTED_STRING);
+				State = 96; Match(BACK_QUOTED_STRING);
 				}
 				break;
-			case T__11:
+			case T__17:
 				_localctx = new SemicolonContext(_localctx);
 				EnterOuterAlt(_localctx, 8);
 				{
-				State = 101; Match(T__11);
+				State = 97; Match(T__17);
 				}
 				break;
-			case T__49:
+			case T__50:
 				_localctx = new CutContext(_localctx);
 				EnterOuterAlt(_localctx, 9);
 				{
-				State = 102; Match(T__49);
+				State = 98; Match(T__50);
 				}
 				break;
 			default:
@@ -916,7 +1090,7 @@ public partial class prologParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 105;
+			State = 101;
 			_la = _input.La(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << DECIMAL) | (1L << BINARY) | (1L << OCTAL) | (1L << HEX) | (1L << CHARACTER_CODE_CONSTANT))) != 0)) ) {
 			_errHandler.RecoverInline(this);
@@ -941,45 +1115,59 @@ public partial class prologParser : Parser {
 		return _localctx;
 	}
 
+	public override bool Sempred(RuleContext _localctx, int ruleIndex, int predIndex) {
+		switch (ruleIndex) {
+		case 4: return term_sempred((TermContext)_localctx, predIndex);
+		}
+		return true;
+	}
+	private bool term_sempred(TermContext _localctx, int predIndex) {
+		switch (predIndex) {
+		case 0: return Precpred(_ctx, 5);
+		}
+		return true;
+	}
+
 	public static readonly string _serializedATN =
-		"\x3\xAF6F\x8320\x479D\xB75C\x4880\x1605\x191C\xAB37\x3\x43n\x4\x2\t\x2"+
+		"\x3\xAF6F\x8320\x479D\xB75C\x4880\x1605\x191C\xAB37\x3\x44j\x4\x2\t\x2"+
 		"\x4\x3\t\x3\x4\x4\t\x4\x4\x5\t\x5\x4\x6\t\x6\x4\a\t\a\x4\b\t\b\x4\t\t"+
-		"\t\x3\x2\x3\x2\x3\x2\x3\x2\x3\x2\a\x2\x18\n\x2\f\x2\xE\x2\x1B\v\x2\x3"+
-		"\x2\x3\x2\x3\x2\x3\x2\x3\x2\a\x2\"\n\x2\f\x2\xE\x2%\v\x2\x3\x2\x3\x2\x3"+
-		"\x3\x3\x3\x3\x3\x3\x3\x3\x3\x3\x3\x3\x3\x3\x3\a\x3\x31\n\x3\f\x3\xE\x3"+
-		"\x34\v\x3\x3\x3\x3\x3\x3\x3\x3\x4\x3\x4\x3\x4\x3\x4\x3\x5\x3\x5\x3\x5"+
-		"\x3\x5\x3\x5\x3\x5\a\x5\x43\n\x5\f\x5\xE\x5\x46\v\x5\x3\x5\x3\x5\x3\x5"+
-		"\x3\x5\x3\x5\x3\x5\x3\x5\a\x5O\n\x5\f\x5\xE\x5R\v\x5\x3\x5\x5\x5U\n\x5"+
-		"\x3\x6\x3\x6\x3\x6\x3\x6\x3\x6\x3\x6\x3\a\x3\a\x3\b\x3\b\x3\b\x3\b\x3"+
-		"\b\x3\b\x3\b\x3\b\x3\b\x3\b\x3\b\x5\bj\n\b\x3\t\x3\t\x3\t\x2\x2\x2\n\x2"+
-		"\x2\x4\x2\x6\x2\b\x2\n\x2\f\x2\xE\x2\x10\x2\x2\x4\x4\x2\x3\x4\b/\x3\x2"+
-		"\x37;s\x2\x12\x3\x2\x2\x2\x4(\x3\x2\x2\x2\x6\x38\x3\x2\x2\x2\bT\x3\x2"+
-		"\x2\x2\nV\x3\x2\x2\x2\f\\\x3\x2\x2\x2\xEi\x3\x2\x2\x2\x10k\x3\x2\x2\x2"+
-		"\x12\x13\x5\x6\x4\x2\x13\x19\b\x2\x1\x2\x14\x15\x5\x6\x4\x2\x15\x16\b"+
-		"\x2\x1\x2\x16\x18\x3\x2\x2\x2\x17\x14\x3\x2\x2\x2\x18\x1B\x3\x2\x2\x2"+
-		"\x19\x17\x3\x2\x2\x2\x19\x1A\x3\x2\x2\x2\x1A\x1C\x3\x2\x2\x2\x1B\x19\x3"+
-		"\x2\x2\x2\x1C\x1D\x5\x4\x3\x2\x1D#\b\x2\x1\x2\x1E\x1F\x5\x4\x3\x2\x1F"+
-		" \b\x2\x1\x2 \"\x3\x2\x2\x2!\x1E\x3\x2\x2\x2\"%\x3\x2\x2\x2#!\x3\x2\x2"+
-		"\x2#$\x3\x2\x2\x2$&\x3\x2\x2\x2%#\x3\x2\x2\x2&\'\a\x2\x2\x3\'\x3\x3\x2"+
-		"\x2\x2()\x5\n\x6\x2)*\a\x3\x2\x2*+\x5\n\x6\x2+\x32\b\x3\x1\x2,-\a\x4\x2"+
-		"\x2-.\x5\n\x6\x2./\b\x3\x1\x2/\x31\x3\x2\x2\x2\x30,\x3\x2\x2\x2\x31\x34"+
-		"\x3\x2\x2\x2\x32\x30\x3\x2\x2\x2\x32\x33\x3\x2\x2\x2\x33\x35\x3\x2\x2"+
-		"\x2\x34\x32\x3\x2\x2\x2\x35\x36\a\x5\x2\x2\x36\x37\b\x3\x1\x2\x37\x5\x3"+
-		"\x2\x2\x2\x38\x39\x5\n\x6\x2\x39:\a\x5\x2\x2:;\b\x4\x1\x2;\a\x3\x2\x2"+
-		"\x2<=\x5\xE\b\x2=\x44\b\x5\x1\x2>?\a\x4\x2\x2?@\x5\xE\b\x2@\x41\b\x5\x1"+
-		"\x2\x41\x43\x3\x2\x2\x2\x42>\x3\x2\x2\x2\x43\x46\x3\x2\x2\x2\x44\x42\x3"+
-		"\x2\x2\x2\x44\x45\x3\x2\x2\x2\x45G\x3\x2\x2\x2\x46\x44\x3\x2\x2\x2GH\b"+
-		"\x5\x1\x2HU\x3\x2\x2\x2IJ\a\x36\x2\x2JP\b\x5\x1\x2KL\a\x4\x2\x2LM\a\x36"+
-		"\x2\x2MO\b\x5\x1\x2NK\x3\x2\x2\x2OR\x3\x2\x2\x2PN\x3\x2\x2\x2PQ\x3\x2"+
-		"\x2\x2QS\x3\x2\x2\x2RP\x3\x2\x2\x2SU\b\x5\x1\x2T<\x3\x2\x2\x2TI\x3\x2"+
-		"\x2\x2U\t\x3\x2\x2\x2VW\x5\xE\b\x2WX\a\x6\x2\x2XY\x5\b\x5\x2YZ\a\a\x2"+
-		"\x2Z[\b\x6\x1\x2[\v\x3\x2\x2\x2\\]\t\x2\x2\x2]\r\x3\x2\x2\x2^_\a\x30\x2"+
-		"\x2_j\a\x31\x2\x2`\x61\a\x32\x2\x2\x61j\a\x33\x2\x2\x62j\a\x35\x2\x2\x63"+
-		"j\a=\x2\x2\x64j\a>\x2\x2\x65j\a?\x2\x2\x66j\a@\x2\x2gj\a\xE\x2\x2hj\a"+
-		"\x34\x2\x2i^\x3\x2\x2\x2i`\x3\x2\x2\x2i\x62\x3\x2\x2\x2i\x63\x3\x2\x2"+
-		"\x2i\x64\x3\x2\x2\x2i\x65\x3\x2\x2\x2i\x66\x3\x2\x2\x2ig\x3\x2\x2\x2i"+
-		"h\x3\x2\x2\x2j\xF\x3\x2\x2\x2kl\t\x3\x2\x2l\x11\x3\x2\x2\x2\t\x19#\x32"+
-		"\x44PTi";
+		"\t\x3\x2\x3\x2\a\x2\x15\n\x2\f\x2\xE\x2\x18\v\x2\x3\x2\x3\x2\x3\x3\x3"+
+		"\x3\x3\x3\x3\x3\x3\x4\x3\x4\x3\x4\x3\x5\x3\x5\x3\x5\a\x5&\n\x5\f\x5\xE"+
+		"\x5)\v\x5\x3\x6\x3\x6\x3\x6\x3\x6\x3\x6\x3\x6\x3\x6\x5\x6\x32\n\x6\x3"+
+		"\x6\x3\x6\x5\x6\x36\n\x6\x3\x6\x3\x6\x3\x6\x3\x6\x3\x6\x3\x6\x3\x6\x3"+
+		"\x6\x3\x6\x3\x6\x3\x6\x3\x6\x3\x6\x5\x6\x45\n\x6\x3\x6\x3\x6\x3\x6\x3"+
+		"\x6\x3\x6\x3\x6\x3\x6\x5\x6N\n\x6\x3\x6\x3\x6\x3\x6\x3\x6\a\x6T\n\x6\f"+
+		"\x6\xE\x6W\v\x6\x3\a\x3\a\x3\b\x3\b\x3\b\x3\b\x3\b\x3\b\x3\b\x3\b\x3\b"+
+		"\x3\b\x3\b\x5\b\x66\n\b\x3\t\x3\t\x3\t\x2\x2\x3\n\n\x2\x2\x4\x2\x6\x2"+
+		"\b\x2\n\x2\f\x2\xE\x2\x10\x2\x2\x4\x6\x2\x3\x3\x5\x5\b\b\xE\x34\x3\x2"+
+		"\x38<x\x2\x16\x3\x2\x2\x2\x4\x1B\x3\x2\x2\x2\x6\x1F\x3\x2\x2\x2\b\"\x3"+
+		"\x2\x2\x2\nM\x3\x2\x2\x2\fX\x3\x2\x2\x2\xE\x65\x3\x2\x2\x2\x10g\x3\x2"+
+		"\x2\x2\x12\x15\x5\x4\x3\x2\x13\x15\x5\x6\x4\x2\x14\x12\x3\x2\x2\x2\x14"+
+		"\x13\x3\x2\x2\x2\x15\x18\x3\x2\x2\x2\x16\x14\x3\x2\x2\x2\x16\x17\x3\x2"+
+		"\x2\x2\x17\x19\x3\x2\x2\x2\x18\x16\x3\x2\x2\x2\x19\x1A\a\x2\x2\x3\x1A"+
+		"\x3\x3\x2\x2\x2\x1B\x1C\a\x3\x2\x2\x1C\x1D\x5\n\x6\x2\x1D\x1E\a\x4\x2"+
+		"\x2\x1E\x5\x3\x2\x2\x2\x1F \x5\n\x6\x2 !\a\x4\x2\x2!\a\x3\x2\x2\x2\"\'"+
+		"\x5\n\x6\x2#$\a\x5\x2\x2$&\x5\n\x6\x2%#\x3\x2\x2\x2&)\x3\x2\x2\x2\'%\x3"+
+		"\x2\x2\x2\'(\x3\x2\x2\x2(\t\x3\x2\x2\x2)\'\x3\x2\x2\x2*+\b\x6\x1\x2+N"+
+		"\a\x37\x2\x2,-\a\x6\x2\x2-.\x5\n\x6\x2./\a\a\x2\x2/N\x3\x2\x2\x2\x30\x32"+
+		"\a\b\x2\x2\x31\x30\x3\x2\x2\x2\x31\x32\x3\x2\x2\x2\x32\x33\x3\x2\x2\x2"+
+		"\x33N\x5\x10\t\x2\x34\x36\a\b\x2\x2\x35\x34\x3\x2\x2\x2\x35\x36\x3\x2"+
+		"\x2\x2\x36\x37\x3\x2\x2\x2\x37N\a=\x2\x2\x38\x39\x5\xE\b\x2\x39:\a\x6"+
+		"\x2\x2:;\x5\b\x5\x2;<\a\a\x2\x2<N\x3\x2\x2\x2=>\x5\f\a\x2>?\x5\n\x6\x6"+
+		"?N\x3\x2\x2\x2@\x41\a\t\x2\x2\x41\x44\x5\b\x5\x2\x42\x43\a\n\x2\x2\x43"+
+		"\x45\x5\n\x6\x2\x44\x42\x3\x2\x2\x2\x44\x45\x3\x2\x2\x2\x45\x46\x3\x2"+
+		"\x2\x2\x46G\a\v\x2\x2GN\x3\x2\x2\x2HI\a\f\x2\x2IJ\x5\b\x5\x2JK\a\r\x2"+
+		"\x2KN\x3\x2\x2\x2LN\x5\xE\b\x2M*\x3\x2\x2\x2M,\x3\x2\x2\x2M\x31\x3\x2"+
+		"\x2\x2M\x35\x3\x2\x2\x2M\x38\x3\x2\x2\x2M=\x3\x2\x2\x2M@\x3\x2\x2\x2M"+
+		"H\x3\x2\x2\x2ML\x3\x2\x2\x2NU\x3\x2\x2\x2OP\f\a\x2\x2PQ\x5\f\a\x2QR\x5"+
+		"\n\x6\aRT\x3\x2\x2\x2SO\x3\x2\x2\x2TW\x3\x2\x2\x2US\x3\x2\x2\x2UV\x3\x2"+
+		"\x2\x2V\v\x3\x2\x2\x2WU\x3\x2\x2\x2XY\t\x2\x2\x2Y\r\x3\x2\x2\x2Z[\a\t"+
+		"\x2\x2[\x66\a\v\x2\x2\\]\a\f\x2\x2]\x66\a\r\x2\x2^\x66\a\x36\x2\x2_\x66"+
+		"\a>\x2\x2`\x66\a?\x2\x2\x61\x66\a@\x2\x2\x62\x66\a\x41\x2\x2\x63\x66\a"+
+		"\x14\x2\x2\x64\x66\a\x35\x2\x2\x65Z\x3\x2\x2\x2\x65\\\x3\x2\x2\x2\x65"+
+		"^\x3\x2\x2\x2\x65_\x3\x2\x2\x2\x65`\x3\x2\x2\x2\x65\x61\x3\x2\x2\x2\x65"+
+		"\x62\x3\x2\x2\x2\x65\x63\x3\x2\x2\x2\x65\x64\x3\x2\x2\x2\x66\xF\x3\x2"+
+		"\x2\x2gh\t\x3\x2\x2h\x11\x3\x2\x2\x2\v\x14\x16\'\x31\x35\x44MU\x65";
 	public static readonly ATN _ATN =
 		new ATNDeserializer().Deserialize(_serializedATN.ToCharArray());
 }

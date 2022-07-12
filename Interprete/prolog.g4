@@ -1,26 +1,38 @@
 grammar prolog;
 
-p_text locals [string l="", string r=""]:  
-    c=clause{$r=$c.texto;} (clist=clause {$r=$r+"&"+$clist.texto;} )* d=directive{$l=$d.texto;} (dlist=directive{$l=$l+"&"+$dlist.texto;})* EOF 
-    #prolog; 
 
-directive returns [string texto] locals [string t=""]:
-    left=term ':-' center=term {$t=$left.texto+"|"+$center.texto;} (',' right=term {$t=$t+"|"+$right.texto;} )* '.' {$texto=$t;} 
-    #directiva; 
+// Prolog text and data formed from terms (6.2)
 
-clause returns [string texto] : 
-    left=term '.' {$texto=$left.texto;}
-    #clausula; 
+p_text: (directive | clause) * EOF #Prolog ;
 
-termlist returns [string texto] locals [string t=""]:
-      left=atom {$t=$left.text;} (','right=atom {$t=$t+" "+$right.text;})* {$texto=$t;} # lista_term
-    | left=VARIABLE {$t=$left.text;} (','right=VARIABLE {$t=$t+" "+$right.text;})* {$texto=$t;} # lista_termvar
+directive: ':-' term '.' ; // also 3.58
+
+clause: term '.' ; // also 3.33
+
+
+// Abstract Syntax (6.3): terms formed from tokens
+
+termlist
+    : term ( ',' term )*
     ;
 
-term returns [string texto] locals [string t=""]
-:left=atom '(' right=termlist ')' {$t=$left.text+"///"+$right.text; $texto=$t;}  # compound_term
-;
+term 
+    : VARIABLE          # variable
+    | '(' term ')'      # braced_term
+    | '-'? integer      # integer_term //TODO: negative case should be covered by unary_operator
+    | '-'? FLOAT        # float
+    // structure / compound term
+    | atom '(' termlist ')'     # compound_term
+    |<assoc=right> term operator_ term        # binary_operator
+    | operator_ term             # unary_operator
+    | '[' termlist ( '|' term )? ']' # list_term
+    | '{' termlist '}'          # curly_bracketed_term
 
+    | atom              # atom_term
+    ;
+
+//TODO: operator priority, associativity, arity. Filter valid priority ranges for e.g. [list] syntax
+//TODO: modifying operator table
 
 operator_
     : ':-' | '-->'
@@ -108,7 +120,6 @@ fragment META_ESCAPE: '\\' [\\'"`] ; // meta char
 fragment CONTROL_ESCAPE: '\\' [abrftnv] ;
 fragment OCTAL_ESCAPE: '\\' [0-7]+ '\\' ;
 fragment HEX_ESCAPE: '\\x' HEX_DIGIT+ '\\' ;
-
 QUOTED:          '\'' (CONTINUATION_ESCAPE | SINGLE_QUOTED_CHARACTER )*? '\'' ; // 6.4.2
 DOUBLE_QUOTED_LIST: '"' (CONTINUATION_ESCAPE | DOUBLE_QUOTED_CHARACTER )*? '"'; // 6.4.6
 BACK_QUOTED_STRING: '`' (CONTINUATION_ESCAPE | BACK_QUOTED_CHARACTER )*? '`'; // 6.4.7
